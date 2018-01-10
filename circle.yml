@@ -1,0 +1,11 @@
+general:
+    branches:
+        only:
+            - master
+compile:
+    override:
+        - (echo "build third party" && cd trunk && mkdir build && cd build  && cmake ..)
+        - (echo "build face-detect" && cd trunk/build && make)
+test:
+    override:
+        - (echo "run unit test" && cd trunk && ./objs/utest-face-detect)
