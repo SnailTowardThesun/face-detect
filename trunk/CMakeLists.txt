@@ -63,6 +63,5 @@ target_link_libraries(face-detect opencv_core opencv_calib3d opencv_dnn opencv_f
     opencv_imgproc opencv_ml opencv_objdetect opencv_photo opencv_shape opencv_stitching opencv_superres opencv_video opencv_videoio
     opencv_videostab)
 
-
 # utest
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/utest)
