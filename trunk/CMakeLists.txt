@@ -1,12 +1,53 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.2)
 
-Project(face-detect)
+Project(face-detect-demo)
+
+# objs
+set (BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/objs/)
+set (LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/objs/lib)
+set(EXECUTABLE_OUTPUT_PATH ${BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${LIB_DIR})
+
+# prepare third party
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/googletest-release-1.8.0)
+else()
+    execute_process(COMMAND "unzip" "googletest-release-1.8.0.zip"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+        )
+endif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/googletest-release-1.8.0)
+
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0)
+else()
+    execute_process(COMMAND "unzip" "opencv-3.4.0.zip"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+        )
+    execute_process(COMMAND "mkdir" "build"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0
+        )
+    execute_process(COMMAND "cmake" "-DCMAKE_INSTALL_PREFIX=${BINARY_DIR}" "-DCMAKE_BUILD_TYPE=Release" ".."
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build
+        )
+    execute_process(COMMAND "make"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build
+        )
+    execute_process(COMMAND "make" "install"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build
+        )
+endif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0)
 
 # compile params
 set(CMAKE_CXX_FLAGS "-g -std=c++11 -Wall")
 
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(SRC_FILE_LISTS)
+
+# third party include files
+include_directories(${SRC_DIR}/include)
+
+# add opencv
+# set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build)
+set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build)
+find_package(OpenCV REQUIRED)
 
 # common part
 include_directories(${SRC_DIR}/common)
@@ -18,3 +59,10 @@ aux_source_directory(${SRC_DIR}/main SRC_FILE_LISTS)
 
 # binary
 add_executable(face-detect ${SRC_DIR}/main/fd-main.cpp ${SRC_FILE_LISTS})
+target_link_libraries(face-detect opencv_core opencv_calib3d opencv_dnn opencv_features2d opencv_flann opencv_highgui opencv_imgcodecs
+    opencv_imgproc opencv_ml opencv_objdetect opencv_photo opencv_shape opencv_stitching opencv_superres opencv_video opencv_videoio
+    opencv_videostab)
+
+
+# utest
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/utest)
