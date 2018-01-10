@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    steps:
+      - checkout
+      - run: cd trunk && mkdir build
+      - run: cd build && cmake .. && make
+  test:
+    steps:
+     - run: ./objs/utest-face-detect
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
