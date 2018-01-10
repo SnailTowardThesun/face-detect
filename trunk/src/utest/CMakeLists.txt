@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 Project(utest)
 
-set(CMAKE_CXX_FLAGS "-g -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "-g -std=c++11 -pthread -Wall")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../third-party/googletest-release-1.8.0/googletest/include/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../third-party/googletest-release-1.8.0/googletest/)
