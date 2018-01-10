@@ -1,11 +1,15 @@
 version: 2
 jobs:
   build:
+    docker:
+      - image: circleci/python:3.6
     steps:
       - checkout
       - run: cd trunk && mkdir build
       - run: cd build && cmake .. && make
   test:
+    docker:
+      - image: circleci/python:3.6
     steps:
      - run: ./objs/utest-face-detect
 
