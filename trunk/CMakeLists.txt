@@ -35,6 +35,25 @@ else()
         )
 endif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0)
 
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0)
+else()
+    execute_process(COMMAND "unzip" "caffe-1.0.zip"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party
+        )
+    execute_process(COMMAND "mkdir" "build"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0
+        )
+    execute_process(COMMAND "cmake" "-DCMAKE_INSTALL_PREFIX=${BINARY_DIR}" ".."
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0/build
+        )
+    execute_process(COMMAND "make"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0/build
+        )
+    execute_process(COMMAND "make" "install"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0/build
+        )
+endif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0)
+
 # compile params
 set(CMAKE_CXX_FLAGS "-g -std=c++11 -Wall")
 
@@ -49,6 +68,10 @@ include_directories(${SRC_DIR}/include)
 set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-3.4.0/build)
 find_package(OpenCV REQUIRED)
 
+set(Caffe_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third-party/caffe-1.0/build/)
+find_package(Caffe REQUIRED)
+
+find_package(Boost REQUIRED COMPONENTS system thread filesystem)
 # common part
 include_directories(${SRC_DIR}/common)
 aux_source_directory(${SRC_DIR}/common SRC_FILE_LISTS)
@@ -59,9 +82,13 @@ aux_source_directory(${SRC_DIR}/main SRC_FILE_LISTS)
 
 # binary
 add_executable(face-detect ${SRC_DIR}/main/fd-main.cpp ${SRC_FILE_LISTS})
+# opencv
 target_link_libraries(face-detect opencv_core opencv_calib3d opencv_dnn opencv_features2d opencv_flann opencv_highgui opencv_imgcodecs
     opencv_imgproc opencv_ml opencv_objdetect opencv_photo opencv_shape opencv_stitching opencv_superres opencv_video opencv_videoio
     opencv_videostab)
+# caffe
+target_link_libraries(face-detect ${Caffe_LIBRARIES})
+target_link_libraries(face-detect ${Boost_LIBRARIES})
 
 # utest
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/utest)

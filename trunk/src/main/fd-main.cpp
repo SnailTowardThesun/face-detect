@@ -21,9 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#define CPU_ONLY
 
 #include <vector>
 #include "fd-common.hpp"
+#include "caffe/caffe.hpp"
 
 int main(int argc, char** argv) {
     int ret = 0;
@@ -31,6 +33,8 @@ int main(int argc, char** argv) {
     std::cout << "face detect version: " << FD_COMMON::VERSION() << std::endl;
     std::cout << "author: " << FD_COMMON::AUTHOR << std::endl;
     std::cout << "email: " << FD_COMMON::EMAIL << std::endl;
+
+    caffe::Caffe::set_mode(caffe::Caffe::CPU);
 
     return ret;
 }

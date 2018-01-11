@@ -23,13 +23,13 @@
 #define CUDA_ARCH_PTX ""
 
 /* AVFoundation video libraries */
-#define HAVE_AVFOUNDATION
+/* #undef HAVE_AVFOUNDATION */
 
 /* V4L capturing support */
 /* #undef HAVE_CAMV4L */
 
 /* V4L2 capturing support */
-/* #undef HAVE_CAMV4L2 */
+#define HAVE_CAMV4L2
 
 /* Carbon windowing environment */
 /* #undef HAVE_CARBON */
@@ -44,7 +44,7 @@
 /* #undef HAVE_CLP */
 
 /* Cocoa API */
-#define HAVE_COCOA
+/* #undef HAVE_COCOA */
 
 /* C= */
 /* #undef HAVE_CSTRIPES */
@@ -62,7 +62,7 @@
 /* #undef HAVE_DC1394 */
 
 /* IEEE1394 capturing support - libdc1394 v2.x */
-/* #undef HAVE_DC1394_2 */
+#define HAVE_DC1394_2
 
 /* DirectX */
 /* #undef HAVE_DIRECTX */
@@ -78,7 +78,7 @@
 /* #undef HAVE_EIGEN */
 
 /* FFMpeg video library */
-#define HAVE_FFMPEG
+/* #undef HAVE_FFMPEG */
 
 /* Geospatial Data Abstraction Library */
 /* #undef HAVE_GDAL */
@@ -87,16 +87,16 @@
 /* #undef HAVE_GSTREAMER */
 
 /* GTK+ 2.0 Thread support */
-/* #undef HAVE_GTHREAD */
+#define HAVE_GTHREAD
 
 /* GTK+ 2.x toolkit */
-/* #undef HAVE_GTK */
+#define HAVE_GTK
 
 /* Halide support */
 /* #undef HAVE_HALIDE */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
+/* #undef HAVE_INTTYPES_H */
 
 /* Intel Perceptual Computing SDK library */
 /* #undef HAVE_INTELPERC */
@@ -116,7 +116,7 @@
 #define HAVE_JPEG
 
 /* libpng/png.h needs to be included */
-/* #undef HAVE_LIBPNG_PNG_H */
+#define HAVE_LIBPNG_PNG_H
 
 /* GDCM DICOM codec */
 /* #undef HAVE_GDCM */
@@ -135,7 +135,7 @@
 
 /* OpenCL Support */
 #define HAVE_OPENCL
-#define HAVE_OPENCL_STATIC
+/* #undef HAVE_OPENCL_STATIC */
 /* #undef HAVE_OPENCL_SVM */
 
 /* OpenEXR codec */
@@ -212,7 +212,7 @@
 /* #undef HAVE_MFX */
 
 /* Lapack */
-#define HAVE_LAPACK
+/* #undef HAVE_LAPACK */
 
 /* Library was compiled with functions instrumentation */
 /* #undef ENABLE_INSTRUMENTATION */
