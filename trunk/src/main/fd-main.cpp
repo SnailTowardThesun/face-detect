@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <vector>
 #include "fd-common.hpp"
+#include "opencv2/opencv.hpp"
 #include "caffe/caffe.hpp"
 
 int main(int argc, char** argv) {
@@ -33,6 +34,11 @@ int main(int argc, char** argv) {
     std::cout << "face detect version: " << FD_COMMON::VERSION() << std::endl;
     std::cout << "author: " << FD_COMMON::AUTHOR << std::endl;
     std::cout << "email: " << FD_COMMON::EMAIL << std::endl;
+
+    cv::CommandLineParser parser(argc, argv, "{help h||}");
+    if (parser.has("help")) {
+        std::cout << "opencv works" << std::endl;
+    }
 
     caffe::Caffe::set_mode(caffe::Caffe::CPU);
 

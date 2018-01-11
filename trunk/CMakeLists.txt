@@ -5,8 +5,8 @@ Project(face-detect-demo)
 # objs
 set (BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/objs/)
 set (LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/objs/lib)
-set(EXECUTABLE_OUTPUT_PATH ${BINARY_DIR})
-set(LIBRARY_OUTPUT_PATH ${LIB_DIR})
+set (EXECUTABLE_OUTPUT_PATH ${BINARY_DIR})
+set (LIBRARY_OUTPUT_PATH ${LIB_DIR})
 
 # prepare third party
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third-party/googletest-release-1.8.0)
@@ -83,9 +83,7 @@ aux_source_directory(${SRC_DIR}/main SRC_FILE_LISTS)
 # binary
 add_executable(face-detect ${SRC_DIR}/main/fd-main.cpp ${SRC_FILE_LISTS})
 # opencv
-target_link_libraries(face-detect opencv_core opencv_calib3d opencv_dnn opencv_features2d opencv_flann opencv_highgui opencv_imgcodecs
-    opencv_imgproc opencv_ml opencv_objdetect opencv_photo opencv_shape opencv_stitching opencv_superres opencv_video opencv_videoio
-    opencv_videostab)
+target_link_libraries(face-detect ${OpenCV_LIBRARIES})
 # caffe
 target_link_libraries(face-detect ${Caffe_LIBRARIES})
 target_link_libraries(face-detect ${Boost_LIBRARIES})
