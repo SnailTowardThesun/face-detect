@@ -46,7 +46,6 @@ add_executable(face-detect ${SRC_DIR}/main/fd-main.cpp ${SRC_FILE_LISTS})
 target_link_libraries(face-detect ${OpenCV_LIBRARIES})
 # caffe
 target_link_libraries(face-detect ${Caffe_LIBRARIES})
-target_link_libraries(face-detect ${Boost_LIBRARIES})
 
 # utest
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/utest)

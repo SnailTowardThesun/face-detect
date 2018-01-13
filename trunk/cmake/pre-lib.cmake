@@ -1,59 +1,5 @@
 # prepare third party
 
-# gflags
-if (EXISTS ${THIRD_PARTY_DIR}/gflags-2.2.1)
-else()
-    execute_process(COMMAND "unzip" "gflags-2.2.1.zip"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}
-        )
-    execute_process(COMMAND "mkdir" "build"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/gflags-2.2.1
-        )
-    execute_process(COMMAND "cmake" "-DCMAKE_INSTALL_PREFIX=${BINARY_DIR}" "-DBUILD_SHARED_LIBS=1"  ".."
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/gflags-2.2.1/build
-        )
-    execute_process(COMMAND "make"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/gflags-2.2.1/build
-        )
-    execute_process(COMMAND "make" "install"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/gflgas-2.2.1/build
-        )
-endif (EXISTS ${THIRD_PARTY_DIR}/gflags-2.2.1)
-
-# glog
-if (EXISTS ${THIRD_PARTY_DIR}/glog-0.3.5)
-else()
-    execute_process(COMMAND "unzip" "glog-0.3.5.zip"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}
-        )
-    execute_process(COMMAND "./configure" "--prefix=${BINARY_DIR}" "LDFLAGS=-L${BINARY_DIR}/lib/" "CPPFLAGS=-I${BINARY_DIR}/include"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/glog-0.3.5
-        )
-    execute_process(COMMAND "make"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/glog-0.3.5
-        )
-    execute_process(COMMAND "make" "install"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/glog-0.3.5
-        )
-endif (EXISTS ${THIRD_PARTY_DIR}/glog-0.3.5)
-
-# boost
-if (EXISTS ${THIRD_PARTY_DIR}/boost_1_55_0)
-else()
-    execute_process(COMMAND "unzip" "boost_1_55_0.zip"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}
-        )
-    execute_process(COMMAND "sh" "bootstrap.sh" "--prefix=${BINARY_DIR}"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/boost_1_55_0
-        )
-    execute_process(COMMAND "exec" "./b2"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/boost_1_55_0
-        )
-    execute_process(COMMAND "exec" "./b2" "install"
-        WORKING_DIRECTORY ${THIRD_PARTY_DIR}/boost_1_55_0
-        )
-endif (EXISTS ${THIRD_PARTY_DIR}/boost_1_55_0)
-
 # googletest
 if (EXISTS ${THIRD_PARTY_DIR}/googletest-release-1.8.0)
 else()
@@ -91,7 +37,7 @@ else()
     execute_process(COMMAND "mkdir" "build"
         WORKING_DIRECTORY ${THIRD_PARTY_DIR}/caffe-1.0
         )
-    execute_process(COMMAND "cmake" "-DCMAKE_INSTALL_PREFIX=${BINARY_DIR}" ".."
+    execute_process(COMMAND "cmake" "-DCMAKE_INSTALL_PREFIX=${BINARY_DIR}" "-DOpenCV_DIR=${BINARY_DIR}/share/OpenCV"  ".."
         WORKING_DIRECTORY ${THIRD_PARTY_DIR}/caffe-1.0/build
         )
     execute_process(COMMAND "make"
