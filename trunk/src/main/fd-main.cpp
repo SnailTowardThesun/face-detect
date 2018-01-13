@@ -35,10 +35,7 @@ int main(int argc, char** argv) {
     std::cout << "author: " << FD_COMMON::AUTHOR << std::endl;
     std::cout << "email: " << FD_COMMON::EMAIL << std::endl;
 
-    cv::CommandLineParser parser(argc, argv, "{help h||}");
-    if (parser.has("help")) {
-        std::cout << "opencv works" << std::endl;
-    }
+    cv::Mat I = cv::Mat::eye(4, 4, CV_64F); 
 
     caffe::Caffe::set_mode(caffe::Caffe::CPU);
 
