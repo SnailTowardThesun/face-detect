@@ -4,3 +4,4 @@
 ## third party
 1. opencv
 1. googletest
+1. caffe
